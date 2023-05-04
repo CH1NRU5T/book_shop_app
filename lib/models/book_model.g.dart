@@ -8,13 +8,13 @@ part of 'book_model.dart';
 
 Book _$BookFromJson(Map<String, dynamic> json) => Book(
       title: json['title'] as String,
-      coverImageUrl: json['coverImageUrl'] as String,
-      priceInDollar: (json['priceInDollar'] as num).toDouble(),
-      categories: (json['categories'] as List<dynamic>)
-          .map((e) => e as String)
+      coverImageUrl: json['cover_image_url'] as String,
+      priceInDollar: (json['price_in_dollar'] as num).toDouble(),
+      categories: (json['categories'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
-      availableFormat: (json['availableFormat'] as List<dynamic>)
-          .map((e) => e as String)
+      availableFormat: (json['available_format'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
     );
 

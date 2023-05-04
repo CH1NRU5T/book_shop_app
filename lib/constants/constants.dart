@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Constants {
   static Color pinkColor = const Color(0xffF46C6C);
+
   static List<Map<String, dynamic>> bookJson = [
     {
       "title": "Wuthering Heights (Collins Classics)",
