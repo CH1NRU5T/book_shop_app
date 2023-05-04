@@ -26,8 +26,7 @@ class BookCard extends StatelessWidget {
                 color: Constants.pinkColor, fontWeight: FontWeight.bold),
           ),
           Text('Mark Siegel',
-              style: GoogleFonts.workSans(
-                  color: const Color.fromRGBO(0, 0, 0, 0.63))),
+              style: GoogleFonts.workSans(color: Constants.black63)),
         ],
       ),
     );

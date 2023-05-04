@@ -1,7 +1,9 @@
+import 'package:book_shop_app/features/book_details/screens/book_detail_screen.dart';
+import 'package:book_shop_app/models/book_model.dart';
 import 'package:flutter/material.dart';
 
-import './features/home/screens/home_screen.dart';
 import './router.dart';
+import 'constants/constants.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Book Shop App',
       theme: ThemeData.light(),
-      home: const HomeScreen(),
+      home: BookDetailScreen(
+        book: Book.fromJson(Constants.bookJson[33]),
+      ),
       onGenerateRoute: generateRoute,
     );
   }
