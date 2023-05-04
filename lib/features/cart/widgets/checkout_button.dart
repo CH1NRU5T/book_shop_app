@@ -9,7 +9,7 @@ class CheckoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      height: 70,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: disabled ? Constants.black20 : Constants.pinkColor,

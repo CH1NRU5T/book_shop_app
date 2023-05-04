@@ -1,4 +1,5 @@
 import 'package:book_shop_app/constants/constants.dart';
+import 'package:book_shop_app/features/cart/widgets/cart_book_card.dart';
 import 'package:book_shop_app/features/cart/widgets/checkout_button.dart';
 import 'package:book_shop_app/models/book_model.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ import '../../../providers/cart_provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
-
+  static const String routeName = 'cart-screen';
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
@@ -23,16 +24,6 @@ class _CartScreenState extends State<CartScreen> {
         .booksWithQuantity
         .keys
         .toList();
-  }
-
-  void remove(Book book) {
-    Provider.of<CartProvider>(context, listen: false).removeBook(book);
-    setState(() {
-      books = Provider.of<CartProvider>(context, listen: false)
-          .booksWithQuantity
-          .keys
-          .toList();
-    });
   }
 
   @override
@@ -74,7 +65,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            books.isEmpty
+            Provider.of<CartProvider>(context).booksWithQuantity.isEmpty
                 ? Expanded(
                     child: Center(
                       child: Text(
@@ -91,85 +82,14 @@ class _CartScreenState extends State<CartScreen> {
                 : Expanded(
                     child: ListView.separated(
                         itemBuilder: (context, index) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    books[index].coverImageUrl,
-                                    fit: BoxFit.fill,
-                                    width: 250,
-                                    height: 200,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 20),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      books[index].title,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.workSans(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      '\$ ${books[index].priceInDollar}',
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.workSans(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            remove(books[index]);
-                                          },
-                                          icon: Icon(
-                                            Icons.remove_circle_outline,
-                                            color: Constants.pinkColor,
-                                          ),
-                                        ),
-                                        Text(
-                                          '${Provider.of<CartProvider>(context).quantity(books[index])}',
-                                          style: GoogleFonts.workSans(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            Provider.of<CartProvider>(context,
-                                                    listen: false)
-                                                .addBook(books[index]);
-                                          },
-                                          icon: Icon(
-                                            Icons.add_circle_outline,
-                                            color: Constants.pinkColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
+                          return CartBookCard(index: index);
                         },
                         separatorBuilder: (context, index) {
-                          return const SizedBox(height: 10);
+                          return const SizedBox(height: 20);
                         },
-                        itemCount: books.length),
+                        itemCount: Provider.of<CartProvider>(context)
+                            .booksWithQuantity
+                            .length),
                   ),
             const SizedBox(height: 10),
             Row(
@@ -181,14 +101,20 @@ class _CartScreenState extends State<CartScreen> {
                       color: Constants.black63, fontSize: 30),
                 ),
                 Text(
-                  '\$ ${Provider.of<CartProvider>(context).subTotal}',
+                  '\$${Provider.of<CartProvider>(context).subTotal}',
                   style: GoogleFonts.workSans(
                       color: Constants.pinkColor, fontSize: 30),
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            CheckoutButton(disabled: books.length > 5 ? true : false),
+            CheckoutButton(
+                disabled: Provider.of<CartProvider>(context)
+                            .booksWithQuantity
+                            .length >
+                        5
+                    ? true
+                    : false),
           ],
         ),
       ),

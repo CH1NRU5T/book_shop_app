@@ -1,12 +1,25 @@
+import 'package:book_shop_app/features/book_details/screens/book_detail_screen.dart';
+import 'package:book_shop_app/features/cart/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 
 import './features/home/screens/home_screen.dart';
+import 'models/book_model.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
-    case '/home':
+    case HomeScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => const HomeScreen(),
+      );
+    case BookDetailScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => BookDetailScreen(
+          book: routeSettings.arguments as Book,
+        ),
+      );
+    case CartScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const CartScreen(),
       );
     default:
       return MaterialPageRoute(

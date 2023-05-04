@@ -1,19 +1,24 @@
-import 'package:book_shop_app/constants/constants.dart';
+import 'package:book_shop_app/features/cart/screens/cart_screen.dart';
 import 'package:book_shop_app/features/home/widgets/search_field.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/constants.dart';
 import '../../../features/home/services/home_services.dart';
 import '../../../features/home/widgets/book_card.dart';
 import '../../../models/book_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
+  static const String routeName = '/home-screen';
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void navigateToCartScreen(BuildContext context) {
+    Navigator.of(context).pushNamed(CartScreen.routeName);
+  }
+
   final HomeServices _homeServices = HomeServices();
   List<Book>? books;
   late TextEditingController _searchController;
@@ -46,9 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       flex: 5,
                       child: SearchField(controller: _searchController)),
                   IconButton(
-                    onPressed: () {
-                      // open cart screen
-                    },
+                    onPressed: () => navigateToCartScreen(context),
                     icon: Icon(
                       Icons.shopping_bag_outlined,
                       size: 30,
@@ -72,8 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisCount: 2),
                     itemBuilder: (context, index) {
                       return BookCard(
-                        imageUrl: books![index].coverImageUrl,
-                        bookTitle: books![index].title,
+                        book: books![index],
                       );
                     },
                   ),

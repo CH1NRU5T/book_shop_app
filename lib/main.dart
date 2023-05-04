@@ -1,4 +1,4 @@
-import 'package:book_shop_app/features/cart/screens/cart_screen.dart';
+import 'package:book_shop_app/features/home/screens/home_screen.dart';
 import 'package:book_shop_app/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       // home: BookDetailScreen(
       //   book: Book.fromJson(Constants.bookJson[48]),
       // ),
-      home: const CartScreen(),
+      home: const HomeScreen(),
       onGenerateRoute: generateRoute,
     );
   }

@@ -1,5 +1,7 @@
 import 'package:book_shop_app/constants/constants.dart';
 import 'package:book_shop_app/features/book_details/widgets/custom_button.dart';
+import 'package:book_shop_app/features/cart/screens/cart_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,7 +9,12 @@ import '../../../models/book_model.dart';
 
 class BookDetailScreen extends StatelessWidget {
   const BookDetailScreen({super.key, required this.book});
+  static const routeName = '/book-detail-screen';
   final Book book;
+  void navigateToCartScreen(BuildContext context) {
+    Navigator.of(context).pushNamed(CartScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -15,7 +22,7 @@ class BookDetailScreen extends StatelessWidget {
         appBar: AppBar(
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () => navigateToCartScreen(context),
                 icon: Icon(
                   Icons.shopping_bag_outlined,
                   size: 30,
@@ -43,8 +50,8 @@ class BookDetailScreen extends StatelessWidget {
               Expanded(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    book.coverImageUrl,
+                  child: CachedNetworkImage(
+                    imageUrl: book.coverImageUrl,
                     fit: BoxFit.scaleDown,
                     width: 250,
                     height: 200,
@@ -78,7 +85,7 @@ class BookDetailScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                '\$ ${book.priceInDollar}',
+                '\$${book.priceInDollar}',
                 textAlign: TextAlign.start,
                 style: GoogleFonts.workSans(
                     fontSize: 50,
