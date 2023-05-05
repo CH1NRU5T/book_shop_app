@@ -22,8 +22,14 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    searchedBooks = searchService.search(widget.query);
+    search(widget.query);
     _searchController.text = widget.query;
+  }
+
+  void search(String query) {
+    setState(() {
+      searchedBooks = searchService.search(query);
+    });
   }
 
   @override
@@ -32,7 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -49,11 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Expanded(
                       flex: 5,
                       child: TextFormField(
-                        onChanged: (value) {
-                          setState(() {
-                            searchedBooks = searchService.search(value);
-                          });
-                        },
+                        onChanged: search,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.workSans(),
                         controller: _searchController,
@@ -71,27 +73,31 @@ class _SearchScreenState extends State<SearchScreen> {
                 ],
               ),
             ),
-            Expanded(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.8,
-                child: SingleChildScrollView(
-                  child: GridView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: searchedBooks.length,
-                    scrollDirection: Axis.vertical,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
-                    itemBuilder: (context, index) {
-                      return BookCard(
-                        book: searchedBooks[index],
-                      );
-                    },
-                  ),
-                ),
-              ),
-            )
+            searchedBooks.isEmpty
+                ? Text('No Books Found',
+                    style: GoogleFonts.workSans(
+                        fontSize: 20, fontWeight: FontWeight.bold))
+                : Expanded(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.8,
+                      child: SingleChildScrollView(
+                        child: GridView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: searchedBooks.length,
+                          scrollDirection: Axis.vertical,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2),
+                          itemBuilder: (context, index) {
+                            return BookCard(
+                              book: searchedBooks[index],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  )
           ],
         ),
       ),
