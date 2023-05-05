@@ -19,6 +19,7 @@ class BookDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
             actions: [
               IconButton(

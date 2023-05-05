@@ -1,5 +1,6 @@
 import 'package:book_shop_app/features/book_details/screens/book_detail_screen.dart';
 import 'package:book_shop_app/features/cart/screens/cart_screen.dart';
+import 'package:book_shop_app/features/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 
 import './features/home/screens/home_screen.dart';
@@ -15,6 +16,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         builder: (context) => BookDetailScreen(
           book: routeSettings.arguments as Book,
+        ),
+      );
+    case SearchScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => SearchScreen(
+          query: routeSettings.arguments as String,
         ),
       );
     case CartScreen.routeName:

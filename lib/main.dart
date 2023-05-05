@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Book Shop App',
       theme: ThemeData.light(),
+
       // home: BookDetailScreen(
       //   book: Book.fromJson(Constants.bookJson[48]),
       // ),

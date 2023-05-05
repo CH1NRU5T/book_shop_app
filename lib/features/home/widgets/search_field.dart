@@ -1,3 +1,4 @@
+import 'package:book_shop_app/features/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,6 +8,10 @@ class SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onFieldSubmitted: (query) {
+        Navigator.of(context)
+            .pushNamed(SearchScreen.routeName, arguments: query);
+      },
       textAlign: TextAlign.center,
       style: GoogleFonts.workSans(),
       decoration: InputDecoration(
