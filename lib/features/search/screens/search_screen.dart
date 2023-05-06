@@ -8,7 +8,7 @@ import '../../home/widgets/book_card.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key, required this.query});
-  static const String routeName = 'search-screen';
+  static const String routeName = '/search-screen';
   final String query;
   @override
   State<SearchScreen> createState() => _SearchScreenState();

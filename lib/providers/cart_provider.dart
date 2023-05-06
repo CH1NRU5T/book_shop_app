@@ -1,47 +1,49 @@
+import 'package:book_shop_app/models/cart_model.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
+import '../boxes.dart';
 import '../models/book_model.dart';
 
 class CartProvider extends ChangeNotifier {
-  final Map<Book, int> _books = {};
-  List<Book> get books => _books.keys.toList();
-  Map<Book, int> get booksWithQuantity => _books;
-  int quantity(Book book) => _books[book] ?? 0;
-  void addBook(Book book) {
-    if (_books.containsKey(book)) {
-      _books[book] = _books[book]! + 1;
+  Box<CartModel> box = Boxes.getCartItems();
+  int quantity(Book book) => box.get(book.title)!.quantity;
+
+  void addBook(Book book) async {
+    if (box.get(book.title) != null) {
+      int quantity = this.quantity(book);
+      await box.put(book.title, CartModel(book: book, quantity: quantity + 1));
     } else {
-      _books[book] = 1;
+      await box.put(book.title, CartModel(book: book, quantity: 1));
     }
     notifyListeners();
   }
 
-  void removeBook(Book book) {
-    if (_books.containsKey(book)) {
-      if (_books[book] == 1) {
-        _books.remove(book);
-      } else {
-        _books[book] = _books[book]! - 1;
-      }
+  void removeBook(Book book) async {
+    int quantity = this.quantity(book);
+    if (quantity == 1) {
+      clearBook(book);
+    } else {
+      await box.put(book.title, CartModel(book: book, quantity: quantity - 1));
     }
     notifyListeners();
   }
 
   double get subTotal {
     double subTotal = 0;
-    _books.forEach((book, quantity) {
-      subTotal += book.priceInDollar * quantity;
-    });
+    for (int i = 0; i < box.length; i++) {
+      subTotal += box.getAt(i)!.book.price_in_dollar * box.getAt(i)!.quantity;
+    }
     return double.parse(subTotal.toStringAsFixed(4));
   }
 
-  void clearBook(Book book) {
-    _books.remove(book);
+  void clearBook(Book book) async {
+    box.delete(book.title);
     notifyListeners();
   }
 
-  void clearCart() {
-    _books.clear();
+  void clearCart() async {
+    await box.clear();
     notifyListeners();
   }
 }

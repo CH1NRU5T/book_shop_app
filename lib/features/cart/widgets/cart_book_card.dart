@@ -1,4 +1,5 @@
 import 'package:book_shop_app/models/book_model.dart';
+import 'package:book_shop_app/models/cart_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,8 +9,9 @@ import '../../../constants/constants.dart';
 import '../../../providers/cart_provider.dart';
 
 class CartBookCard extends StatefulWidget {
-  const CartBookCard({super.key, required this.index});
+  const CartBookCard({super.key, required this.index, required this.cart});
   final int index;
+  final List<CartModel> cart;
   @override
   State<CartBookCard> createState() => _CartBookCardState();
 }
@@ -23,6 +25,10 @@ class _CartBookCardState extends State<CartBookCard> {
     Provider.of<CartProvider>(context, listen: false).clearBook(book);
   }
 
+  void add(Book book) {
+    Provider.of<CartProvider>(context, listen: false).addBook(book);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -32,9 +38,7 @@ class _CartBookCardState extends State<CartBookCard> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: CachedNetworkImage(
-              imageUrl: Provider.of<CartProvider>(context, listen: false)
-                  .books[widget.index]
-                  .coverImageUrl,
+              imageUrl: widget.cart[widget.index].book.cover_image_url,
               fit: BoxFit.fill,
               width: 10,
               height: 190,
@@ -46,9 +50,7 @@ class _CartBookCardState extends State<CartBookCard> {
           child: Column(
             children: [
               Text(
-                Provider.of<CartProvider>(context, listen: false)
-                    .books[widget.index]
-                    .title,
+                widget.cart[widget.index].book.title,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
@@ -58,7 +60,7 @@ class _CartBookCardState extends State<CartBookCard> {
               const SizedBox(height: 10),
               const SizedBox(height: 10),
               Text(
-                '\$ ${Provider.of<CartProvider>(context, listen: false).books[widget.index].priceInDollar}',
+                '\$ ${widget.cart[widget.index].book.price_in_dollar}',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.workSans(
                     fontSize: 20, fontWeight: FontWeight.w500),
@@ -69,8 +71,7 @@ class _CartBookCardState extends State<CartBookCard> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      remove(Provider.of<CartProvider>(context, listen: false)
-                          .books[widget.index]);
+                      remove(widget.cart[widget.index].book);
                     },
                     icon: Icon(
                       Icons.remove_circle_outline,
@@ -78,15 +79,13 @@ class _CartBookCardState extends State<CartBookCard> {
                     ),
                   ),
                   Text(
-                    '${Provider.of<CartProvider>(context).quantity(Provider.of<CartProvider>(context, listen: false).books[widget.index])}',
+                    '${widget.cart[widget.index].quantity}',
                     style: GoogleFonts.workSans(
                         fontSize: 20, fontWeight: FontWeight.w500),
                   ),
                   IconButton(
                     onPressed: () {
-                      Provider.of<CartProvider>(context, listen: false).addBook(
-                          Provider.of<CartProvider>(context, listen: false)
-                              .books[widget.index]);
+                      add(widget.cart[widget.index].book);
                     },
                     icon: Icon(
                       Icons.add_circle_outline,
@@ -96,8 +95,7 @@ class _CartBookCardState extends State<CartBookCard> {
                   const SizedBox(width: 1),
                   IconButton(
                       onPressed: () {
-                        clear(Provider.of<CartProvider>(context, listen: false)
-                            .books[widget.index]);
+                        clear(widget.cart[widget.index].book);
                       },
                       icon: Icon(
                         Icons.clear_rounded,
