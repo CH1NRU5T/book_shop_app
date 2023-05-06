@@ -19,6 +19,7 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  int get numberOfBooks => box.length;
   void removeBook(Book book) async {
     int quantity = this.quantity(book);
     if (quantity == 1) {

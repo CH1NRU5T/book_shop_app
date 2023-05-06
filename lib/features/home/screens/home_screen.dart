@@ -1,11 +1,17 @@
+import 'package:badges/badges.dart' as badges;
+import 'package:book_shop_app/constants/constants.dart';
 import 'package:book_shop_app/features/cart/screens/cart_screen.dart';
 import 'package:book_shop_app/features/home/widgets/search_field.dart';
+import 'package:book_shop_app/models/cart_model.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
-import '../../../constants/constants.dart';
+import '../../../boxes.dart';
 import '../../../features/home/services/home_services.dart';
 import '../../../features/home/widgets/book_card.dart';
 import '../../../models/book_model.dart';
+import '../../../providers/cart_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _searchController = TextEditingController();
   }
 
+  Box<CartModel> box = Boxes.getCartItems();
   @override
   void dispose() {
     _searchController.dispose();
@@ -53,10 +60,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: SearchField(controller: _searchController)),
                   IconButton(
                     onPressed: () => navigateToCartScreen(context),
-                    icon: Icon(
-                      Icons.shopping_bag_outlined,
-                      size: 30,
-                      color: Constants.pinkColor,
+                    icon: badges.Badge(
+                      badgeStyle: badges.BadgeStyle(
+                        badgeColor: Constants.pinkColor,
+                      ),
+                      position: badges.BadgePosition.bottomEnd(),
+                      badgeContent: Text(Provider.of<CartProvider>(context)
+                          .numberOfBooks
+                          .toString()),
+                      child: Icon(
+                        Icons.shopping_bag_outlined,
+                        size: 25,
+                        color: Constants.pinkColor,
+                      ),
                     ),
                   ),
                 ],

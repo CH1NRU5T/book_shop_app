@@ -38,6 +38,7 @@ dependencies:
   path_provider:
   hive:
   hive_flutter:
+  badges:
 
 dev_dependencies:
   build_runner: null

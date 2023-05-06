@@ -1,22 +1,27 @@
+import 'package:badges/badges.dart' as badges;
 import 'package:book_shop_app/constants/constants.dart';
 import 'package:book_shop_app/features/book_details/widgets/custom_button.dart';
 import 'package:book_shop_app/features/cart/screens/cart_screen.dart';
+import 'package:book_shop_app/models/cart_model.dart';
+import 'package:book_shop_app/providers/cart_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../../boxes.dart';
 import '../../../models/book_model.dart';
 
 class BookDetailScreen extends StatelessWidget {
-  const BookDetailScreen({super.key, required this.book});
+  BookDetailScreen({super.key, required this.book});
   static const routeName = '/book-detail-screen';
   final Book book;
   void navigateToCartScreen(BuildContext context) {
     Navigator.of(context).pushNamed(CartScreen.routeName);
   }
 
+  Box<CartModel> box = Boxes.getCartItems();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,10 +31,19 @@ class BookDetailScreen extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () => navigateToCartScreen(context),
-                icon: Icon(
-                  Icons.shopping_bag_outlined,
-                  size: 30,
-                  color: Constants.pinkColor,
+                icon: badges.Badge(
+                  badgeStyle: badges.BadgeStyle(
+                    badgeColor: Constants.pinkColor,
+                  ),
+                  position: badges.BadgePosition.bottomEnd(),
+                  badgeContent: Text(Provider.of<CartProvider>(context)
+                      .numberOfBooks
+                      .toString()),
+                  child: Icon(
+                    Icons.shopping_bag_outlined,
+                    size: 25,
+                    color: Constants.pinkColor,
+                  ),
                 ),
               ),
             ],
