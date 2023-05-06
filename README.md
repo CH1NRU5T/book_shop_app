@@ -1,16 +1,29 @@
 # book_shop_app
 
-A new Flutter project.
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
 
-## Getting Started
+## Shop for your favourite books on this app
 
-This project is a starting point for a Flutter application.
+<br>
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<div align=center>
+<img src="./1.jpg" width=200 height=300 alt="1">
+<img src="./2.jpg" width=200 height=300 alt="2">
+<img src="./3.jpg" width=200 height=300 alt="3">
+</div>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<br>
+
+## How to run?
+
+- Run `flutter pub get` in the root folder
+- run `flutter run` to run the app.
+
+## Features
+
+- [x] Add books to cart
+- [x] Preserve the cart data so that when app is reopened, the previous data is present
+- [x] Search for a book
