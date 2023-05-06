@@ -13,15 +13,22 @@ import 'package:provider/provider.dart';
 import '../../../boxes.dart';
 import '../../../models/book_model.dart';
 
-class BookDetailScreen extends StatelessWidget {
-  BookDetailScreen({super.key, required this.book});
+class BookDetailScreen extends StatefulWidget {
+  const BookDetailScreen({super.key, required this.book});
   static const routeName = '/book-detail-screen';
   final Book book;
+
+  @override
+  State<BookDetailScreen> createState() => _BookDetailScreenState();
+}
+
+class _BookDetailScreenState extends State<BookDetailScreen> {
   void navigateToCartScreen(BuildContext context) {
     Navigator.of(context).pushNamed(CartScreen.routeName);
   }
 
   Box<CartModel> box = Boxes.getCartItems();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -72,7 +79,7 @@ class BookDetailScreen extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: CachedNetworkImage(
-                        imageUrl: book.coverImageUrl,
+                        imageUrl: widget.book.coverImageUrl,
                         fit: BoxFit.scaleDown,
                         width: 250,
                         height: 200,
@@ -83,7 +90,7 @@ class BookDetailScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          book.title,
+                          widget.book.title,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.workSans(
                               fontSize: 23, fontWeight: FontWeight.bold),
@@ -106,7 +113,7 @@ class BookDetailScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '\$${book.priceInDollar}',
+                    '\$${widget.book.priceInDollar}',
                     textAlign: TextAlign.start,
                     style: GoogleFonts.workSans(
                         fontSize: 50,
@@ -115,7 +122,7 @@ class BookDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   CustomButton(
-                    book: book,
+                    book: widget.book,
                     cart: cart,
                   ),
                 ],

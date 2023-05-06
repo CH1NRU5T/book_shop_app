@@ -15,7 +15,29 @@ class CheckoutButton extends StatelessWidget {
         color: disabled ? Constants.black20 : Constants.pinkColor,
       ),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                      size: 70,
+                    ),
+                    SizedBox(height: 20),
+                    Text('Order Confirmed',
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              );
+            },
+          );
+        },
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
