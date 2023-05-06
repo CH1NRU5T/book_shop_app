@@ -38,6 +38,12 @@ class _CartBookCardState extends State<CartBookCard> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: CachedNetworkImage(
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              placeholder: (context, url) => Center(
+                child: CircularProgressIndicator(
+                  color: Constants.pinkColor,
+                ),
+              ),
               imageUrl: widget.cart[widget.index].book.coverImageUrl,
               fit: BoxFit.fill,
               width: 10,

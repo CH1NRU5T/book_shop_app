@@ -25,7 +25,15 @@ class BookCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CachedNetworkImage(
-                imageUrl: book.coverImageUrl, width: 200, height: 100),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(
+                        color: Constants.pinkColor,
+                      ),
+                    ),
+                imageUrl: book.coverImageUrl,
+                width: 200,
+                height: 100),
             Text(
               book.title,
               textAlign: TextAlign.center,

@@ -79,6 +79,13 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: CachedNetworkImage(
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                        placeholder: (context, url) => Center(
+                          child: CircularProgressIndicator(
+                            color: Constants.pinkColor,
+                          ),
+                        ),
                         imageUrl: widget.book.coverImageUrl,
                         fit: BoxFit.scaleDown,
                         width: 250,
