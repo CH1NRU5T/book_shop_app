@@ -18,10 +18,10 @@ class BookAdapter extends TypeAdapter<Book> {
     };
     return Book(
       title: fields[0] as String,
-      cover_image_url: fields[1] as String,
-      price_in_dollar: fields[2] as double,
+      coverImageUrl: fields[1] as String,
+      priceInDollar: fields[2] as double,
       categories: (fields[3] as List?)?.cast<String>(),
-      available_format: (fields[4] as List?)?.cast<String>(),
+      availableFormat: (fields[4] as List?)?.cast<String>(),
     );
   }
 
@@ -32,13 +32,13 @@ class BookAdapter extends TypeAdapter<Book> {
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.cover_image_url)
+      ..write(obj.coverImageUrl)
       ..writeByte(2)
-      ..write(obj.price_in_dollar)
+      ..write(obj.priceInDollar)
       ..writeByte(3)
       ..write(obj.categories)
       ..writeByte(4)
-      ..write(obj.available_format);
+      ..write(obj.availableFormat);
   }
 
   @override
@@ -58,20 +58,20 @@ class BookAdapter extends TypeAdapter<Book> {
 
 Book _$BookFromJson(Map<String, dynamic> json) => Book(
       title: json['title'] as String,
-      cover_image_url: json['cover_image_url'] as String,
-      price_in_dollar: (json['price_in_dollar'] as num).toDouble(),
+      coverImageUrl: json['cover_image_url'] as String,
+      priceInDollar: (json['price_in_dollar'] as num).toDouble(),
       categories: (json['categories'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      available_format: (json['available_format'] as List<dynamic>?)
+      availableFormat: (json['available_format'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
     );
 
 Map<String, dynamic> _$BookToJson(Book instance) => <String, dynamic>{
       'title': instance.title,
-      'cover_image_url': instance.cover_image_url,
-      'price_in_dollar': instance.price_in_dollar,
+      'cover_image_url': instance.coverImageUrl,
+      'price_in_dollar': instance.priceInDollar,
       'categories': instance.categories,
-      'available_format': instance.available_format,
+      'available_format': instance.availableFormat,
     };

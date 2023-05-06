@@ -25,7 +25,7 @@ class BookCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CachedNetworkImage(
-                imageUrl: book.cover_image_url, width: 200, height: 100),
+                imageUrl: book.coverImageUrl, width: 200, height: 100),
             Text(
               book.title,
               textAlign: TextAlign.center,

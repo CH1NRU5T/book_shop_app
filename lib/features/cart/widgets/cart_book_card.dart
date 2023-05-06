@@ -38,7 +38,7 @@ class _CartBookCardState extends State<CartBookCard> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: CachedNetworkImage(
-              imageUrl: widget.cart[widget.index].book.cover_image_url,
+              imageUrl: widget.cart[widget.index].book.coverImageUrl,
               fit: BoxFit.fill,
               width: 10,
               height: 190,
@@ -60,7 +60,7 @@ class _CartBookCardState extends State<CartBookCard> {
               const SizedBox(height: 10),
               const SizedBox(height: 10),
               Text(
-                '\$ ${widget.cart[widget.index].book.price_in_dollar}',
+                '\$ ${widget.cart[widget.index].book.priceInDollar}',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.workSans(
                     fontSize: 20, fontWeight: FontWeight.w500),

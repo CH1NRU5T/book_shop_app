@@ -32,7 +32,7 @@ class CartProvider extends ChangeNotifier {
   double get subTotal {
     double subTotal = 0;
     for (int i = 0; i < box.length; i++) {
-      subTotal += box.getAt(i)!.book.price_in_dollar * box.getAt(i)!.quantity;
+      subTotal += box.getAt(i)!.book.priceInDollar * box.getAt(i)!.quantity;
     }
     return double.parse(subTotal.toStringAsFixed(4));
   }

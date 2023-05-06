@@ -58,7 +58,7 @@ class BookDetailScreen extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: CachedNetworkImage(
-                        imageUrl: book.cover_image_url,
+                        imageUrl: book.coverImageUrl,
                         fit: BoxFit.scaleDown,
                         width: 250,
                         height: 200,
@@ -92,7 +92,7 @@ class BookDetailScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '\$${book.price_in_dollar}',
+                    '\$${book.priceInDollar}',
                     textAlign: TextAlign.start,
                     style: GoogleFonts.workSans(
                         fontSize: 50,

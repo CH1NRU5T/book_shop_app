@@ -9,20 +9,20 @@ class Book {
   @HiveField(0)
   String title;
   @HiveField(1)
-  String cover_image_url;
+  String coverImageUrl;
   @HiveField(2)
-  double price_in_dollar;
+  double priceInDollar;
   @HiveField(3)
   List<String>? categories;
   @HiveField(4)
-  List<String>? available_format;
+  List<String>? availableFormat;
 
   Book({
     required this.title,
-    required this.cover_image_url,
-    required this.price_in_dollar,
+    required this.coverImageUrl,
+    required this.priceInDollar,
     this.categories,
-    this.available_format,
+    this.availableFormat,
   });
 
   @override
